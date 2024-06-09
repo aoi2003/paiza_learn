@@ -1,8 +1,8 @@
 from collections import deque
 
-def bfs(H, W, start_y, start_x):
+def bfs(H, W, start_y, start_x, N):
     """
-    盤面上の特定の位置から最大3マス移動することで到達できるマスを求める関数
+    盤面上の特定の位置からN回以内に到達できるマスを求める関数
     """
     # キューを初期化し、スタート位置をキューに追加する
     q = deque([(start_y, start_x)])
@@ -25,8 +25,8 @@ def bfs(H, W, start_y, start_x):
         # キューから現在のマス（y, x）を取り出す
         y, x = q.popleft()
 
-        # 現在のマスへの移動回数が3回以上の場合、探索を終了する
-        if l[y][x] == 3:
+        # 現在のマスへの移動回数がN回以上の場合、探索を終了する
+        if l[y][x] == N:
             continue
 
         # 現在のマスから上下左右の4方向に移動する
@@ -53,12 +53,12 @@ def print_board(board):
     for row in board:
         print("".join(row))
 
-# 盤面のサイズ（H, W）とスタート位置（y, x）を入力から読み取る
-H, W = map(int, input().split())
+# 盤面のサイズ（H, W）、移動回数（N）、スタート位置（y, x）を入力から読み取る
+H, W, N = map(int, input().split())
 start_y, start_x = map(int, input().split())
 
 # 幅優先探索を実行し、最終的な盤面の状態を取得する
-final_board = bfs(H, W, start_y, start_x)
+final_board = bfs(H, W, start_y, start_x, N)
 
 # 最終的な盤面の状態を出力する
 print_board(final_board)
